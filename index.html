@@ -58,8 +58,8 @@ To receive credit, you must type&nbsp;the code correctly.</i></center>
 <center>&nbsp;</center>
 
 <center><em>Clicking the link&nbsp;below will open the task in a new tab.<br />
-<strong>Please&nbsp;click the&nbsp;link only once and do not close the tab until you finish and see a message saying&nbsp;</strong></em><strong><em>&quot;Thank you for your patience.&quot;</em></strong></center>
-
+<strong>Please&nbsp;click the&nbsp;link only once and do not close the tab until you finish and see a message saying&nbsp;</strong></em><strong><em>&quot;Thank you for your patience.&quot;</em></strong><br />
+<strong>You will be automatically redirected from the task to the survey once you have completed the task. Once you complete the survey, you will be redirected back to Prolific.</strong></center>
 <center><em style="color: rgb(255, 0, 0);">If you have technical issues, please try a different browser! Some participants say&nbsp;<strong>Firefox</strong>&nbsp;has worked best.</em></center>
 </center>
 &nbsp;
@@ -73,26 +73,14 @@ To receive credit, you must type&nbsp;the code correctly.</i></center>
 	</colgroup>
 	<tbody>
 		<tr>
-			<td style="line-height: 1.42857;"><b><b><label>Task1 link:</label></b></b></td>
+			<td style="line-height: 1.42857;"><b><b><label>Task link:</label></b></b></td>
 			<td style="line-height: 1.42857;">
-			<p><b><b><a href="https://run.pavlovia.org/NIMH-COMPPSYCH/mmi-hope_mood-expectation-textbox-copy/?participant=${participant}" target="_blank">Click Here</a></b></b></p>
-			</td>
-		</tr>
-		<tr>
-			<td style="line-height: 1.42857;"><b><b><label>Survey link:</label></b></b></td>
-			<td style="line-height: 1.42857;">
-			<p><b><b><a href="https://run.pavlovia.org/NIMH-COMPPSYCH/mood-expectation-hope-survey/?participant=${participant}" target="_blank">Click Here</a></b></b></p>
+			<p><b><b><a href="href="https://run.pavlovia.org/NIMH-COMPPSYCH/mood-anxiety-survey/?participant=" target="_blank">Click Here</a></b></b></p>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
-<div class="form-group">
-<div class="form-group"><b><b><label for="task1code">Provide the task1 code here:</label><input class="form-control" id="task1code" name="task1code" placeholder="e.g. 12345-6789" required="" style="line-height: 1.42857; width: 555px;" type="text" /></b></b></div>
-
-<div class="form-group"><b><b><label for="surveycode">Provide the survey code here:</label><input class="form-control" id="surveycode" name="surveycode" placeholder="e.g. 12345-6789" required="" style="line-height: 1.42857; width: 555px;" type="text" /></b></b></div>
-</div>
-</div>
 </div>
 <!-- End Survey Link Layout --></div>
 </div>
@@ -124,6 +112,34 @@ To receive credit, you must type&nbsp;the code correctly.</i></center>
 }
 </style>
 <!-- Close internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js" integrity="sha384-s1ITto93iSMDxlp/79qhWHi+LsIi9Gx6yL+cOKDuymvihkfol83TYbLbOw+W/wv4" crossorigin="anonymous"></script><!-- Open internal javascript --><script>
+
+const cyrb53 = (str, seed = 0) => {
+    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+    for(let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+    h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+    h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  
+    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+};
+
+function appendIDsToURL(linkElem, workerIDName) {
+    var url = window.location.href;
+    var workerName = 'workerId';
+    var workerRegex = new RegExp("[?&]" + workerName + "(=([^&#]*)|&|#|$)");
+    var workerResults = workerRegex.exec(url);
+    if (workerResults && workerResults[2]) {
+        var workerID = decodeURIComponent(workerResults[2].replace(/\+/g, " "));
+        var phash = cyrb53(workerResults[2]);
+        var linkURL = $(linkElem).attr('href');
+        $(linkElem).attr('href', linkURL + phash);
+    }
+}
   $(document).ready(function() {
     // Instructions expand/collapse
     var content = $('#instructionBody');
