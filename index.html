@@ -98,7 +98,7 @@
                         <tr>
                             <td style="line-height: 1.42857;"><b><b><label>Survey link:</label></b></b></td>
                             <td style="line-height: 1.42857;">
-                            <p><b><b><a href="https://run.pavlovia.org/NIMH-COMPPSYCH/mood-expectation-hope-survey-prolific/?participant=" id="pavlovia-link" target="_blank">Click Here</a></b></b></p>
+                            <p><b><b><a href="https://run.pavlovia.org/NIMH-COMPPSYCH/mood-expectation-hope-survey-prolific/?participant=" id="pavlovia-survey-link" target="_blank">Click Here</a></b></b></p>
                             </td>
                         </tr>
                     </tbody>
@@ -194,6 +194,8 @@ function appendIDsToSuveyURL(linkElem, workerIDName) {
     });
     // end expand/collapse
     appendIDsToURL('#pavlovia-link', 'phash');
+	appendIDsToSuveyURL('pavlovia-survey-link', 'phash');
+
   });
 
 function agreeFunction() {
