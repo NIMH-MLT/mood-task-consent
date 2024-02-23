@@ -84,7 +84,7 @@
     	</div>
     </div>
     <center><button onclick="noSurveyFunction()">I WAS NOT REDIRECTED TO THE SURVEY</button></center>
-    <div id="SurveyLink" style="display:none;">
+    <div id="HiddenSurveyLink" style="display:none;">
         <div class="row" id="workContent">
             <div class="col-xs-12 col-md-6 col-md-offset-3" style="width: 485px; margin-left: 242.5px;">
                 <table class="table table-condensed table-bordered" style="width: 455px;">
@@ -200,10 +200,11 @@ function agreeFunction() {
 }
 function disagreeFunction() {
    document.getElementById('Links').style.display = "none";
+   document.getElementById('HiddenSurveyLink').style.display = "none";
    document.getElementById('Goodbye').style.display = "block";
 }
 function noSurveyFunction() {
-   document.getElementById('SurveyLink').style.display = "block";
+   document.getElementById('HiddenSurveyLink').style.display = "block";
 }
 </script><!-- Close internal javascript -->
 </body>
